@@ -278,8 +278,6 @@ const playButton = document.querySelector("#playButton");
 const pauseButton = document.querySelector("#pauseButton");
 const stopButton = document.querySelector("#stopButton");
 const statusEl = document.querySelector("#speechStatus");
-const rateRange = document.querySelector("#rateRange");
-const rateOutput = document.querySelector("#rateOutput");
 const chapterList = document.querySelector("#chapterList");
 const chapterTitle = document.querySelector("#chapterTitle");
 const chapterText = document.querySelector("#chapterText");
@@ -297,7 +295,6 @@ const calcResult = document.querySelector("#calcResult");
 
 let currentLessonIndex = 0;
 let currentChapter = 0;
-let utterance = null;
 
 function normalizeLessonIndex() {
   const hash = window.location.hash.replace("#", "");
@@ -375,8 +372,7 @@ function renderAudio(lesson) {
   chapterList.querySelectorAll("[data-chapter]").forEach((button) => {
     button.addEventListener("click", () => {
       setChapter(Number(button.dataset.chapter));
-      stopSpeechOnly();
-      statusEl.textContent = "已切换章节";
+      statusEl.textContent = "已切换讲稿";
     });
   });
 
@@ -463,53 +459,9 @@ function renderLesson(index) {
   });
 }
 
-function getChineseVoice() {
-  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
-  return voices.find((voice) => voice.lang.toLowerCase().startsWith("zh")) || voices[0] || null;
-}
-
-function stopSpeechOnly() {
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-  }
-}
-
 function stopAllAudio() {
-  stopSpeechOnly();
   nativeAudio.pause();
   nativeAudio.currentTime = 0;
-}
-
-function speak() {
-  const lesson = lessons[currentLessonIndex];
-
-  if (!("speechSynthesis" in window)) {
-    nativeAudio.play();
-    statusEl.textContent = "正在播放完整音频";
-    return;
-  }
-
-  window.speechSynthesis.cancel();
-  utterance = new SpeechSynthesisUtterance(
-    `${lesson.chapters[currentChapter][0]}。${lesson.chapters[currentChapter][1]}`
-  );
-  utterance.lang = "zh-CN";
-  utterance.rate = Number(rateRange.value);
-  const voice = getChineseVoice();
-  if (voice) {
-    utterance.voice = voice;
-  }
-  utterance.onstart = () => {
-    statusEl.textContent = `正在播放：${lesson.chapters[currentChapter][0]}`;
-  };
-  utterance.onend = () => {
-    statusEl.textContent = "播放完成";
-  };
-  utterance.onerror = () => {
-    nativeAudio.play();
-    statusEl.textContent = "章节朗读不可用，已切换到完整音频。";
-  };
-  window.speechSynthesis.speak(utterance);
 }
 
 function updateCost() {
@@ -518,25 +470,18 @@ function updateCost() {
   calcResult.textContent = `$${cost.toFixed(4)} / 次`;
 }
 
-playButton.addEventListener("click", speak);
+playButton.addEventListener("click", () => {
+  nativeAudio.play();
+  statusEl.textContent = "正在播放完整音频";
+});
 
 pauseButton.addEventListener("click", () => {
-  if (!("speechSynthesis" in window)) {
-    if (nativeAudio.paused) {
-      nativeAudio.play();
-      statusEl.textContent = "继续播放完整音频";
-    } else {
-      nativeAudio.pause();
-      statusEl.textContent = "已暂停完整音频";
-    }
-    return;
-  }
-  if (window.speechSynthesis.paused) {
-    window.speechSynthesis.resume();
-    statusEl.textContent = "继续播放";
+  if (nativeAudio.paused) {
+    nativeAudio.play();
+    statusEl.textContent = "继续播放完整音频";
   } else {
-    window.speechSynthesis.pause();
-    statusEl.textContent = "已暂停";
+    nativeAudio.pause();
+    statusEl.textContent = "已暂停完整音频";
   }
 });
 
@@ -545,8 +490,16 @@ stopButton.addEventListener("click", () => {
   statusEl.textContent = "已停止";
 });
 
-rateRange.addEventListener("input", () => {
-  rateOutput.textContent = `${Number(rateRange.value).toFixed(2)}x`;
+nativeAudio.addEventListener("play", () => {
+  statusEl.textContent = "正在播放完整音频";
+});
+
+nativeAudio.addEventListener("pause", () => {
+  statusEl.textContent = nativeAudio.currentTime > 0 ? "已暂停完整音频" : "准备就绪";
+});
+
+nativeAudio.addEventListener("ended", () => {
+  statusEl.textContent = "播放完成";
 });
 
 tokenForm.addEventListener("input", updateCost);
@@ -558,10 +511,6 @@ window.addEventListener("hashchange", () => {
 window.addEventListener("popstate", () => {
   renderLesson(normalizeLessonIndex());
 });
-
-if ("speechSynthesis" in window) {
-  window.speechSynthesis.onvoiceschanged = getChineseVoice;
-}
 
 renderLessonNav();
 renderLesson(normalizeLessonIndex());

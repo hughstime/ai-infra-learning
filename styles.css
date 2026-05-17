@@ -93,14 +93,16 @@ nav a:hover {
 }
 
 .app-shell {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  align-items: start;
+  display: block;
 }
 
 .course-sidebar {
-  position: sticky;
+  position: fixed;
   top: 63px;
+  bottom: 0;
+  left: 0;
+  z-index: 14;
+  width: 260px;
   height: calc(100svh - 63px);
   padding: 24px 16px;
   border-right: 1px solid var(--line);
@@ -119,6 +121,7 @@ nav a:hover {
 
 .content {
   min-width: 0;
+  margin-left: 260px;
 }
 
 .hero {
@@ -403,23 +406,9 @@ footer {
   padding: clamp(20px, 4vw, 34px);
 }
 
-.rate-control {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 12px;
-  align-items: center;
-  margin: 18px 0;
-  color: var(--muted);
-  font-weight: 700;
-}
-
 .native-audio {
   width: 100%;
   margin: 8px 0 14px;
-}
-
-.rate-control input {
-  width: 100%;
 }
 
 .chapter-list {
@@ -619,6 +608,7 @@ footer p {
     position: sticky;
     top: 91px;
     z-index: 15;
+    width: auto;
     height: auto;
     padding: 12px 18px;
     border-right: 0;
@@ -640,6 +630,10 @@ footer p {
 
   .hero {
     min-height: auto;
+  }
+
+  .content {
+    margin-left: 0;
   }
 
   .hero-visual {
@@ -685,10 +679,6 @@ footer p {
 
   .compute-card {
     min-height: 132px;
-  }
-
-  .rate-control {
-    grid-template-columns: 1fr;
   }
 
   footer {
