@@ -153,6 +153,7 @@ h3 {
 .secondary,
 .icon-button,
 .chapter-list button,
+.lesson-tab,
 .concept {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -249,6 +250,7 @@ h3 {
 }
 
 .band,
+.course-switcher,
 .lesson-grid,
 .calculator {
   padding: clamp(42px, 7vw, 88px) clamp(18px, 5vw, 72px);
@@ -257,6 +259,54 @@ h3 {
 .section-head {
   max-width: 820px;
   margin-bottom: 28px;
+}
+
+.course-switcher {
+  padding-top: clamp(24px, 5vw, 56px);
+  background: #edf3f7;
+}
+
+.lesson-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.lesson-tab {
+  display: grid;
+  gap: 8px;
+  min-height: 112px;
+  padding: 16px;
+  text-align: left;
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: 0 8px 28px rgba(27, 39, 58, 0.06);
+}
+
+.lesson-tab span,
+.lesson-tab strong {
+  display: block;
+}
+
+.lesson-tab span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.lesson-tab strong {
+  align-self: end;
+  font-size: 22px;
+}
+
+.lesson-tab.active {
+  color: #fff;
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.lesson-tab.active span {
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .chain {
@@ -559,6 +609,12 @@ footer p {
 
   .calc-form {
     grid-template-columns: 1fr;
+  }
+
+  .lesson-nav {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 8px;
   }
 }
 

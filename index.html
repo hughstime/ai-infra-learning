@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="AI 算力产业链与数据中心系统学习课程：声图文结合的第一课。"
+      content="AI 算力产业链与数据中心系统学习课程：声图文结合的移动端课程站。"
     />
-    <title>AI 算力产业链学习 | 第一课</title>
+    <title>AI 算力产业链学习</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -20,86 +20,43 @@
         </span>
       </a>
       <nav aria-label="课程导航">
+        <a href="#courses">课程</a>
         <a href="#map">总图</a>
         <a href="#lesson">讲义</a>
         <a href="#audio">口播</a>
-        <a href="#checklist">检查表</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" id="hero">
         <div class="hero-copy">
-          <p class="eyebrow">第 1 课 · AI 算力基础</p>
-          <h1>先搞懂算力，才看得懂 AI 产业链。</h1>
-          <p class="lede">
-            这一课用一张图、一段口播、一份讲义，把训练、推理、token、FLOPS、显存和带宽串起来。
-            学完后，你看芯片、服务器、数据中心、电力和云厂商财报，会有一条清晰主线。
-          </p>
+          <p class="eyebrow" id="heroEyebrow">第 1 课 · AI 算力基础</p>
+          <h1 id="heroTitle">先搞懂算力，才看得懂 AI 产业链。</h1>
+          <p class="lede" id="heroLede"></p>
           <div class="hero-actions">
             <a class="primary" href="#audio">开始听课</a>
-            <a class="secondary" href="#map">先看总图</a>
+            <a class="secondary" href="#courses">切换课程</a>
           </div>
         </div>
 
-        <div class="hero-visual" aria-label="AI 算力链路动画">
-          <div class="compute-card chip">
-            <span>GPU / ASIC</span>
-            <strong>算得快</strong>
-          </div>
-          <div class="compute-card memory">
-            <span>HBM</span>
-            <strong>喂得饱</strong>
-          </div>
-          <div class="compute-card network">
-            <span>网络互联</span>
-            <strong>连得稳</strong>
-          </div>
-          <div class="compute-card power">
-            <span>数据中心</span>
-            <strong>供得上</strong>
-          </div>
+        <div class="hero-visual" id="heroVisual" aria-label="课程主题图"></div>
+      </section>
+
+      <section class="course-switcher" id="courses" aria-label="课程列表">
+        <div class="section-head">
+          <p class="eyebrow">课程目录</p>
+          <h2>同一个网址里，按顺序搭起产业链地图。</h2>
         </div>
+        <div class="lesson-nav" id="lessonNav"></div>
       </section>
 
       <section class="band" id="map">
         <div class="section-head">
           <p class="eyebrow">一张总图</p>
-          <h2>AI 算力不是一颗芯片，而是一条系统链。</h2>
+          <h2 id="chainTitle">AI 算力不是一颗芯片，而是一条系统链。</h2>
         </div>
 
-        <div class="chain" aria-label="AI 算力产业链图">
-          <article>
-            <span class="node-index">01</span>
-            <h3>模型需求</h3>
-            <p>更大模型、更长上下文、更多用户调用，形成算力需求。</p>
-          </article>
-          <article>
-            <span class="node-index">02</span>
-            <h3>训练 / 推理</h3>
-            <p>训练负责“做模型”，推理负责“用模型”。</p>
-          </article>
-          <article>
-            <span class="node-index">03</span>
-            <h3>AI 芯片</h3>
-            <p>GPU 偏通用，ASIC 偏专用，CPU 负责调度。</p>
-          </article>
-          <article>
-            <span class="node-index">04</span>
-            <h3>HBM / 显存</h3>
-            <p>显存容量决定装不装得下，带宽决定喂不喂得饱。</p>
-          </article>
-          <article>
-            <span class="node-index">05</span>
-            <h3>AI 服务器</h3>
-            <p>把芯片、内存、网卡、电源、散热组合成可运行系统。</p>
-          </article>
-          <article>
-            <span class="node-index">06</span>
-            <h3>数据中心</h3>
-            <p>电力、冷却、网络和土地决定算力能否真正上线。</p>
-          </article>
-        </div>
+        <div class="chain" id="chainList" aria-label="课程结构图"></div>
       </section>
 
       <section class="lesson-grid" id="audio">
@@ -111,7 +68,7 @@
           </p>
 
           <audio class="native-audio" id="nativeAudio" controls preload="metadata">
-            <source src="assets/audio/lesson-01.m4a" type="audio/mp4" />
+            <source id="audioSource" src="assets/audio/lesson-01.m4a" type="audio/mp4" />
             你的浏览器暂不支持音频播放。
           </audio>
 
@@ -127,13 +84,7 @@
             <output id="rateOutput">1.00x</output>
           </label>
 
-          <div class="chapter-list" aria-label="章节选择">
-            <button type="button" data-chapter="0">1. 算力在算什么</button>
-            <button type="button" data-chapter="1">2. Token 与成本</button>
-            <button type="button" data-chapter="2">3. FLOPS 与可用算力</button>
-            <button type="button" data-chapter="3">4. 显存与带宽</button>
-            <button type="button" data-chapter="4">5. 投资研究视角</button>
-          </div>
+          <div class="chapter-list" id="chapterList" aria-label="章节选择"></div>
 
           <p class="status" id="speechStatus" aria-live="polite">准备就绪</p>
         </div>
@@ -148,61 +99,14 @@
       <section class="band" id="lesson">
         <div class="section-head">
           <p class="eyebrow">一份讲义</p>
-          <h2>五个概念，搭起第一层认知框架。</h2>
+          <h2 id="conceptsTitle">五个概念，搭起第一层认知框架。</h2>
         </div>
 
-        <div class="concepts">
-          <button class="concept active" type="button" data-concept="training">
-            <span>训练</span>
-            <strong>做模型</strong>
-          </button>
-          <button class="concept" type="button" data-concept="inference">
-            <span>推理</span>
-            <strong>用模型</strong>
-          </button>
-          <button class="concept" type="button" data-concept="token">
-            <span>Token</span>
-            <strong>工作量</strong>
-          </button>
-          <button class="concept" type="button" data-concept="flops">
-            <span>FLOPS</span>
-            <strong>计算速度</strong>
-          </button>
-          <button class="concept" type="button" data-concept="memory">
-            <span>显存 / 带宽</span>
-            <strong>效率上限</strong>
-          </button>
-        </div>
+        <div class="concepts" id="conceptList"></div>
 
-        <article class="concept-card" id="conceptCard">
-          <h3>训练：把模型做出来</h3>
-          <p>
-            训练是把海量文本、图片、代码或视频喂给模型，让模型学习参数。它通常需要大量 GPU 同时协作，
-            对显存、互联、网络和稳定性要求极高。
-          </p>
-          <div class="formula">训练需求 = 模型竞赛 × 数据规模 × 集群效率</div>
-        </article>
+        <article class="concept-card" id="conceptCard"></article>
 
-        <div class="compare">
-          <article>
-            <h3>训练驱动</h3>
-            <p>早期 AI 景气度更多来自模型竞赛：谁都想训练更大的模型、更强的多模态模型。</p>
-            <ul>
-              <li>更看重顶级性能</li>
-              <li>更依赖高速互联</li>
-              <li>资本开支强度高</li>
-            </ul>
-          </article>
-          <article>
-            <h3>推理驱动</h3>
-            <p>长期商业化更看推理：只要用户持续使用，每一次调用都会消耗算力。</p>
-            <ul>
-              <li>更看重单位 token 成本</li>
-              <li>更看重延迟和吞吐</li>
-              <li>可能更适合专用芯片</li>
-            </ul>
-          </article>
-        </div>
+        <div class="compare" id="compareList"></div>
       </section>
 
       <section class="calculator">
@@ -236,18 +140,12 @@
           <h2>以后看研报和财报，先抓这些词。</h2>
         </div>
 
-        <div class="checklist">
-          <label><input type="checkbox" /> 这家公司受益于训练需求，还是推理需求？</label>
-          <label><input type="checkbox" /> 它卖的是理论算力，还是可用算力？</label>
-          <label><input type="checkbox" /> 它是否解决显存容量、带宽或互联瓶颈？</label>
-          <label><input type="checkbox" /> 它的产品会不会提升 GPU 利用率？</label>
-          <label><input type="checkbox" /> 它的成本最终能否被客户的 AI 收入覆盖？</label>
-        </div>
+        <div class="checklist" id="checklistItems"></div>
       </section>
     </main>
 
     <footer>
-      <p>AI 算力产业链系统课 · 第 1 课</p>
+      <p id="footerLesson">AI 算力产业链系统课 · 第 1 课</p>
       <p>用于学习研究，不构成投资建议。</p>
     </footer>
 
