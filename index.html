@@ -20,34 +20,35 @@
         </span>
       </a>
       <nav aria-label="课程导航">
-        <a href="#courses">课程</a>
+        <a href="#courseSidebar">课程</a>
         <a href="#map">总图</a>
         <a href="#lesson">讲义</a>
         <a href="#audio">口播</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero" id="hero">
+    <div class="app-shell">
+      <aside class="course-sidebar" id="courseSidebar" aria-label="课程目录">
+        <div class="sidebar-head">
+          <p class="eyebrow">课程目录</p>
+          <h2>AI 算力链</h2>
+        </div>
+        <div class="lesson-nav" id="lessonNav"></div>
+      </aside>
+
+      <main class="content">
+        <section class="hero" id="hero">
         <div class="hero-copy">
           <p class="eyebrow" id="heroEyebrow">第 1 课 · AI 算力基础</p>
           <h1 id="heroTitle">先搞懂算力，才看得懂 AI 产业链。</h1>
           <p class="lede" id="heroLede"></p>
           <div class="hero-actions">
             <a class="primary" href="#audio">开始听课</a>
-            <a class="secondary" href="#courses">切换课程</a>
+            <a class="secondary" href="#courseSidebar">课程目录</a>
           </div>
         </div>
 
         <div class="hero-visual" id="heroVisual" aria-label="课程主题图"></div>
-      </section>
-
-      <section class="course-switcher" id="courses" aria-label="课程列表">
-        <div class="section-head">
-          <p class="eyebrow">课程目录</p>
-          <h2>同一个网址里，按顺序搭起产业链地图。</h2>
-        </div>
-        <div class="lesson-nav" id="lessonNav"></div>
       </section>
 
       <section class="band" id="map">
@@ -142,7 +143,8 @@
 
         <div class="checklist" id="checklistItems"></div>
       </section>
-    </main>
+      </main>
+    </div>
 
     <footer>
       <p id="footerLesson">AI 算力产业链系统课 · 第 1 课</p>

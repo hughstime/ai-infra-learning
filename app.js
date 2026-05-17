@@ -320,9 +320,8 @@ function renderLessonNav() {
   lessonNav.querySelectorAll("[data-lesson]").forEach((button) => {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.lesson);
-      window.location.hash = lessons[index].id;
+      history.pushState(null, "", `#${lessons[index].id}`);
       renderLesson(index);
-      document.querySelector("#hero").scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
 }
@@ -553,6 +552,10 @@ rateRange.addEventListener("input", () => {
 tokenForm.addEventListener("input", updateCost);
 
 window.addEventListener("hashchange", () => {
+  renderLesson(normalizeLessonIndex());
+});
+
+window.addEventListener("popstate", () => {
   renderLesson(normalizeLessonIndex());
 });
 
